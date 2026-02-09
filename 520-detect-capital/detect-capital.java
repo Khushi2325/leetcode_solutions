@@ -12,17 +12,16 @@ class Solution {
                 }
             }
 
-            if(cnt == len) return true;
-            cnt = 1;
+            if(cnt == len || cnt == 1) return true;
+            // cnt = 1;
 
-            for(int i = 1; i<len; i++){
-                if(Character.isLowerCase(w.charAt(i))){
-                    cnt++;
-                }
-            }
+            // for(int i = 1; i<len; i++){
+            //     if(Character.isLowerCase(w.charAt(i))){
+            //         cnt++;
+            //     }
+            // }
 
-            if(cnt == len) return true;
-            else return false;
+            return false;
 
         }else{
             for(int i = 1; i<len; i++){
