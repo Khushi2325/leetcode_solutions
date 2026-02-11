@@ -1,6 +1,4 @@
 class SegmentTree {
-    /* Segment Tree over array of size n */
-
     public int n;
     public int size;
     public int[] sum;
@@ -16,8 +14,6 @@ class SegmentTree {
     }
 
     void _pull(int node) {
-        /* Helper to recompute information of node by it's children */
-
         int l = node * 2, r = node * 2 + 1;
 
         sum[node] = sum[l] + sum[r];
@@ -26,10 +22,8 @@ class SegmentTree {
     }
 
     void update(int idx, int val) {
-        /* Update value by index idx in original array */
-
         int node = 1, l = 0, r = n - 1;
-        int[] path = new int[32]; // enough for n up to 2^31
+        int[] path = new int[32]; 
         int ps = 0;
 
         while (l != r) {
@@ -54,8 +48,6 @@ class SegmentTree {
     }
 
     int find_rightmost_prefix(int target) {
-        /* Find rightmost index r with prefixsum(r) = target */
-
         int node = 1, l = 0, r = n - 1, sum_before = 0;
 
         if (!(mn[node] <= target - sum_before && target - sum_before <= mx[node]))
@@ -65,7 +57,6 @@ class SegmentTree {
             int m = l + (r - l) / 2;
             int lchild = node * 2, rchild = node * 2 + 1;
 
-            // Check right half first
             int sum_before_right = sum[lchild] + sum_before;
             int need_right = target - sum_before_right;
 
@@ -87,23 +78,20 @@ class Solution {
     public int longestBalanced(int[] nums) {
         int n = nums.length;
 
-        SegmentTree stree = new SegmentTree(n);  // SegmentTree over balance array for current l
-        java.util.HashMap<Integer, Integer> first = new java.util.HashMap<>();  // val -> first occurence idx for current l
+        SegmentTree stree = new SegmentTree(n);  
+        java.util.HashMap<Integer, Integer> first = new java.util.HashMap<>();  
 
         int result = 0;
         for (int l = n - 1; l >= 0; --l) {
             int num = nums[l];
 
-            // If x already had a first occurrence to the right, remove that old marker.
             Integer old = first.get(num);
             if (old != null)
                 stree.update(old, 0);
 
-            // Now x becomes first occurrence at l.
             first.put(num, l);
             stree.update(l, (num % 2 == 0) ? 1 : -1);
 
-            // Find rightmost r >= l such that sum(w[l..r]) == 0
             int r = stree.find_rightmost_prefix(0);
             if (r >= l)
                 result = Math.max(result, r - l + 1);
