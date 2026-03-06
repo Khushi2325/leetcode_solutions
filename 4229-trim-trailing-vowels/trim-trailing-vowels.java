@@ -1,27 +1,24 @@
 class Solution {
     public String trimTrailingVowels(String s) {
         int n = s.length();
-        Stack<Character> st = new Stack<>();
+        int end = -1;
 
-        for(int i = 0; i<n; i++){
-            st.push(s.charAt(i));
-        }
-
-        while(!st.isEmpty()){
-            if(isVowel(st.peek())){
-                st.pop();
-            }else{
+        for(int i = n-1; i>=0;i--){
+            if(!isVowel(s.charAt(i))){
+                end = i;
                 break;
             }
         }
 
+        
+
         StringBuilder sb = new StringBuilder();
 
-        while(!st.isEmpty()){
-            sb.append(st.pop());
+        for(int i = 0; i<=end; i++){
+            sb.append(s.charAt(i));
         }
 
-        return sb.reverse().toString();
+        return sb.toString();
     }
 
     public boolean isVowel(char ch){
