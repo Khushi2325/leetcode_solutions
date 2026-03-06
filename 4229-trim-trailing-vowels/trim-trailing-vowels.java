@@ -10,15 +10,8 @@ class Solution {
             }
         }
 
-        
 
-        StringBuilder sb = new StringBuilder();
-
-        for(int i = 0; i<=end; i++){
-            sb.append(s.charAt(i));
-        }
-
-        return sb.toString();
+        return s.substring(0, end+1);
     }
 
     public boolean isVowel(char ch){
