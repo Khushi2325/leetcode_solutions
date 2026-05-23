@@ -6,7 +6,6 @@ class Solution {
 
         int inversionCount = 0;
 
-        // For every pair, count the number of inversions.
         for (int i = 1; i < n; ++i) {
             if (nums[i] < nums[i - 1]) {
                 ++inversionCount;
@@ -14,7 +13,6 @@ class Solution {
             }
         }
 
-        // Also check between the last and the first element due to rotation
         if (nums[0] < nums[n - 1]) {
             ++inversionCount;
         }
