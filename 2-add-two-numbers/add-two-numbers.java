@@ -10,61 +10,27 @@
  */
 class Solution {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        ListNode h1 = l1;
-        ListNode h2 = l2;
-
         ListNode li = new ListNode(-1);
         ListNode temp = li;
         int carry = 0;
 
-        while(h1 != null && h2 != null){
-            int a = h1.val + h2.val + carry;
+        while(l1 != null || l2 != null || carry != 0){
+            int sum = carry;
 
-            if(a < 10){
-                temp.next = new ListNode(a);
-                carry = 0;
-                temp = temp.next;
-            }else{
-                temp.next = new ListNode(a % 10);
-                carry = a/10;
-                temp = temp.next;
+            if(l1 != null){
+                sum += l1.val;
+                l1 = l1.next;
             }
 
-            h1 = h1.next;
-            h2 = h2.next;
-        }
-
-        while(h1 != null){
-            int a = h1.val + carry;
-            if(a < 10){
-                temp.next = new ListNode(a);
-                carry = 0;
-                temp = temp.next;
-            }else{
-                temp.next = new ListNode(a % 10);
-                carry = a/10;
-                temp = temp.next;
+            if(l2 != null){
+                sum += l2.val;
+                l2 = l2.next;
             }
 
-            h1 = h1.next;
+            carry = sum / 10;
+            temp.next = new ListNode(sum % 10);
+            temp = temp.next;
         }
-
-        while(h2 != null){
-            int a = h2.val + carry;
-            if(a < 10){
-                temp.next = new ListNode(a);
-                carry = 0;
-                temp = temp.next;
-            }else{
-                temp.next = new ListNode(a % 10);
-                carry = a/10;
-                temp = temp.next;
-            }
-
-            h2 = h2.next;
-        }
-
-        if(carry != 0) temp.next = new ListNode(carry);
 
         return li.next;
     }
