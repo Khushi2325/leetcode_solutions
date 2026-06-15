@@ -7,7 +7,7 @@ class Solution {
         boolean[] hascol = new boolean[m];
 
         for(int i = 0; i<n; i++){
-            for(int j = 0; j<m; j++){
+            for(int j =0; j<m; j++){
                 if(mat[i][j] == 0){
                     hasrow[i] = true;
                     hascol[j] = true;
@@ -22,7 +22,5 @@ class Solution {
                 }
             }
         }
-
-        
     }
 }
