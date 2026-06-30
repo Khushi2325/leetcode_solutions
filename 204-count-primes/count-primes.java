@@ -2,7 +2,7 @@ class Solution {
     public int countPrimes(int n) {
         if(n <= 2) return 0;
         int cnt = 0;
-        boolean[] sieve = new boolean[n+1];
+        boolean[] sieve = new boolean[n];
 
         Arrays.fill(sieve, true);
 
