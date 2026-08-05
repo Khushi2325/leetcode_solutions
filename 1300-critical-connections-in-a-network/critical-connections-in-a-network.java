@@ -44,7 +44,7 @@ class Solution {
                 }
 
             }else if(par != a){
-                low[v] = Math.min(low[a], low[v]);
+                low[v] = Math.min(dt[a], low[v]);
             }
         }
     }
