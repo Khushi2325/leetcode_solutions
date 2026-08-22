@@ -12,10 +12,6 @@ class Solution {
             n /= 10;
         }
 
-        if(temp % (sum + pro) == 0){
-            return true;
-        }
-
-        return false;
+        return (temp % (sum + pro)) == 0;
     }
 }
