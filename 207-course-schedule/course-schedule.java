@@ -1,25 +1,25 @@
-import java.util.*;
-
 class Solution {
-    public boolean canFinish(int numCourses, int[][] prerequisites) {
-        List<List<Integer>> adj = new ArrayList<>();
-        for (int i = 0; i < numCourses; i++) {
+    public boolean canFinish(int n, int[][] pre) {
+        ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
+
+        for(int i = 0; i<n; i++){
             adj.add(new ArrayList<>());
         }
-        for (int[] edge : prerequisites) {
-            int v = edge[0]; 
-            int u = edge[1]; 
-            adj.get(u).add(v); // u -> v
+
+        for(int i = 0; i<pre.length; i++){
+            int u = pre[i][0];
+            int v = pre[i][1];
+
+            adj.get(u).add(v);
         }
 
-        boolean[] vis = new boolean[numCourses];
-        boolean[] recPath = new boolean[numCourses];
+        boolean[] vis = new boolean[n];
+        boolean[] recPath = new boolean[n];
 
-        // 3. Run DFS for each component: O(V + E) total
-        for (int i = 0; i < numCourses; i++) {
-            if (!vis[i]) {
-                if (isCycle(i, vis, recPath, adj)) {
-                    return false; // Cycle detected
+        for(int i = 0; i<n; i++){
+            if(!vis[i]){
+                if(topo(i, adj, vis, recPath)){
+                    return false;
                 }
             }
         }
@@ -27,21 +27,21 @@ class Solution {
         return true;
     }
 
-    private boolean isCycle(int src, boolean[] vis, boolean[] recPath, List<List<Integer>> adj) {
-        vis[src] = true;
-        recPath[src] = true;
+    public boolean topo(int v, ArrayList<ArrayList<Integer>> adj, boolean[] vis, boolean[]recPath){
+        vis[v] = true;
+        recPath[v] = true;
 
-        for (int neighbor : adj.get(src)) {
-            if (!vis[neighbor]) {
-                if (isCycle(neighbor, vis, recPath, adj)) {
+        for(int i : adj.get(v)){
+            if(!vis[i]){
+                if(topo(i, adj, vis, recPath)){
                     return true;
                 }
-            } else if (recPath[neighbor]) {
+            }else if(recPath[i]){
                 return true;
             }
         }
 
-        recPath[src] = false;
+        recPath[v] = false;
         return false;
     }
 }
