@@ -7,8 +7,8 @@ class Solution {
         }
 
         for(int i = 0; i<pre.length; i++){
-            int u = pre[i][0];
-            int v = pre[i][1];
+            int v = pre[i][0];
+            int u = pre[i][1];
 
             adj.get(u).add(v);
         }
