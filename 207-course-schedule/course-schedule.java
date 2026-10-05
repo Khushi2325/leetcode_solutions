@@ -14,34 +14,31 @@ class Solution {
         }
 
         boolean[] vis = new boolean[n];
-        boolean[] recPath = new boolean[n];
+        boolean[] recpath = new boolean[n];
 
         for(int i = 0; i<n; i++){
             if(!vis[i]){
-                if(topo(i, adj, vis, recPath)){
-                    return false;
-                }
+                if(dfs(i, vis, adj, recpath)) return false;
             }
         }
 
         return true;
     }
 
-    public boolean topo(int v, ArrayList<ArrayList<Integer>> adj, boolean[] vis, boolean[]recPath){
+    public boolean dfs(int v, boolean[] vis, ArrayList<ArrayList<Integer>> adj, boolean[] recpath){
+
         vis[v] = true;
-        recPath[v] = true;
+        recpath[v] = true;
 
         for(int i : adj.get(v)){
             if(!vis[i]){
-                if(topo(i, adj, vis, recPath)){
-                    return true;
-                }
-            }else if(recPath[i]){
+                if(dfs(i, vis, adj, recpath)) return true;
+            }else if(recpath[i]){
                 return true;
             }
         }
 
-        recPath[v] = false;
+        recpath[v] = false;
         return false;
     }
 }
